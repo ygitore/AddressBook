@@ -1,0 +1,7 @@
+namespace AddressBook
+{
+    class AddressBook
+    {
+        
+    }
+}
