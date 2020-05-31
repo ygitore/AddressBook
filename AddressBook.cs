@@ -5,18 +5,18 @@ namespace AddressBook
 {
     class AddressBook
     {
-        private List<Contact> contacts = new List<Contact>();
+        private Dictionary<string, Contact> contacts = new Dictionary<string, Contact>();
         public void AddContact(Contact contact){
-            if(!contacts.Contains(contact)){
-                contacts.Add(contact);
+            if(!contacts.ContainsValue(contact)){
+                contacts.Add(contact.Email, contact);
             }else{
                 System.Console.WriteLine("contact exists");
             }
         }
         public Contact  GetByEmail(string email){
-            IEnumerable<Contact> emailAddress = contacts.Where(em => em.Email == email);
-            List<Contact> userEmail = emailAddress.ToList();
-            return userEmail.FirstOrDefault();
+            IEnumerable<KeyValuePair<string, Contact>> emailAddress = contacts.Where(em => em.Value.Email == email);
+            Dictionary<string, Contact> userEmail = emailAddress.ToDictionary(K => K.Key, k => k.Value);
+            return userEmail.FirstOrDefault().Value;            
         }
     }
 }
