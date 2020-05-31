@@ -43,18 +43,31 @@ namespace AddressBook
                 "juan.lopez@email.com",
                 "bob.smith@email.com",
             };
-
-            // Insert an email that does NOT match a Contact
-            //emails.Insert(1, "not.in.addressbook@email.com");            
+            try
+            {
+                //Insert an email that does NOT match a Contact
+                emails.Insert(1, "not.in.addressbook@email.com");
+            }
+            catch (NullReferenceException)
+            {
+                System.Console.WriteLine("Email doesn't exist");
+            }
 
             //  Search the AddressBook by email and print the information about each Contact
             foreach (string email in emails)
             {
-                Contact contact = addressBook.GetByEmail(email);
-                Console.WriteLine("----------------------------");
-                Console.WriteLine($"Name: {contact.FullName}");
-                Console.WriteLine($"Email: {contact.Email}");
-                Console.WriteLine($"Address: {contact.Address}");
+                try
+                {
+                    Contact contact = addressBook.GetByEmail(email);
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine($"Name: {contact.FullName}");
+                    Console.WriteLine($"Email: {contact.Email}");
+                    Console.WriteLine($"Address: {contact.Address}");
+                }
+                catch (KeyNotFoundException)
+                {
+                    System.Console.WriteLine("Key doesn't exist");
+                }
             }
         }
     }
